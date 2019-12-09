@@ -1,0 +1,66 @@
+---
+swagger: "2.0"
+info:
+  description: "Login API"
+  version: "0.0.1"
+  title: "Login API"
+paths:
+  /loginUser:
+    post:
+      summary: "This api is to allow user log in with a phone and password."
+      operationId: "loginUser"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Login user details request"
+        required: false
+        schema:
+          $ref: "#/definitions/LoginUserRequestFormat"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/LoginUserResponseFormat"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+      x-swagger-router-controller: "Default"
+definitions:
+  LoginUserRequestFormat:
+    type: "object"
+    required:
+    - "phoneNumber"
+    - "pin"
+    properties:
+      phoneNumber:
+        type: "string"
+      pin:
+        type: "string"
+    example:
+      phoneNumber: "phoneNumber"
+      pin: "pin"
+  LoginUserResponseFormat:
+    type: "object"
+    required:
+    - "status"
+    properties:
+      status:
+        type: "integer"
+      phoneNumber:
+        type: "string"
+      message:
+        type: "string"
+    example:
+      phoneNumber: "phoneNumber"
+      message: "message"
+      status: 0
+  ErrorResponse:
+    type: "object"
+    required:
+    - "message"
+    properties:
+      message:
+        type: "string"
